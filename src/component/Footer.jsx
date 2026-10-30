@@ -36,7 +36,7 @@ const Footer = () => {
   return (
     <footer className="mt-auto w-full overflow-x-hidden bg-[#0f172a] text-white">
       <div className="page-container py-10 sm:py-12 lg:py-14">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        <div className="grid items-start gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-14">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-flex items-center gap-2.5">
@@ -47,7 +47,7 @@ const Footer = () => {
                 Shop<span className="text-primary-500">Easy</span>
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-400">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-300">
               Your trusted destination for quality products at great prices.
               Shop smarter with ShopEasy.
             </p>
@@ -57,7 +57,7 @@ const Footer = () => {
                   key={label}
                   href="#"
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[.08] text-gray-400 transition-all duration-250 hover:-translate-y-0.5 hover:bg-primary-600 hover:text-white hover:shadow-lg hover:shadow-primary-600/25"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[.08] text-gray-300 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-primary-600 hover:text-white hover:shadow-lg hover:shadow-primary-600/25"
                 >
                   <Icon className="text-sm" />
                 </a>
@@ -67,7 +67,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#FFFFFF]">
               Quick Links
             </h3>
             <ul className="space-y-2.5">
@@ -75,7 +75,7 @@ const Footer = () => {
                 <li key={to}>
                   <Link
                     to={to}
-                    className="inline-block text-sm text-gray-400 transition-all duration-200 hover:translate-x-0.5 hover:text-white"
+                    className="inline-block text-sm text-gray-300 transition-all duration-200 ease-out hover:translate-x-0.5 hover:text-white"
                   >
                     {label}
                   </Link>
@@ -86,7 +86,7 @@ const Footer = () => {
 
           {/* Customer Service */}
           <div>
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#FFFFFF]">
               Customer Service
             </h3>
             <ul className="space-y-2.5">
@@ -94,7 +94,7 @@ const Footer = () => {
                 <li key={to}>
                   <Link
                     to={to}
-                    className="inline-block text-sm text-gray-400 transition-all duration-200 hover:translate-x-0.5 hover:text-white"
+                    className="inline-block text-sm text-gray-300 transition-all duration-200 ease-out hover:translate-x-0.5 hover:text-white"
                   >
                     {label}
                   </Link>
@@ -105,10 +105,10 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#FFFFFF]">
               Contact Us
             </h3>
-            <ul className="space-y-3 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-2.5">
                 <MdLocationOn className="mt-0.5 shrink-0 text-base text-primary-500" />
                 <span>123 Commerce Street, Karachi, Pakistan</span>
@@ -128,10 +128,10 @@ const Footer = () => {
 
       <div className="border-t border-white/10">
         <div className="page-container flex flex-col items-center justify-between gap-3 py-5 text-center sm:flex-row sm:text-left">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-400">
             &copy; {new Date().getFullYear()} ShopEasy. All rights reserved.
           </p>
-          <div className="flex gap-5 text-sm text-gray-500">
+          <div className="flex gap-5 text-sm text-gray-400">
             <a href="#" className="transition-colors duration-200 hover:text-gray-300">
               Privacy Policy
             </a>

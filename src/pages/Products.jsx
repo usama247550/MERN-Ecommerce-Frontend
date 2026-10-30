@@ -10,6 +10,8 @@ import { fetchProducts } from "../features/products/productSlice.js";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../component/Pagination.jsx";
 import PageTitle from "../component/PageTitle.jsx";
+import "../css/Products.css";
+import "../css/Product.css";
 
 const Products = () => {
   const { loading, products, error } = useSelector((state) => state.Products);
@@ -61,38 +63,41 @@ const Products = () => {
     <>
       <PageTitle title={"Products"} />
       <Navbar />
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="page-container flex flex-col gap-6 py-6 sm:py-8 lg:flex-row lg:gap-8">
-          <aside className="ui-card w-full shrink-0 lg:w-56 xl:w-64">
-            <h3 className="card-heading mb-4 uppercase tracking-wide">
-              Category
-            </h3>
-            <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
-              {categoryArr.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => handleCategory(cat)}
-                  className="cursor-pointer rounded-lg px-3 py-2 text-left text-sm capitalize text-text-secondary transition-colors hover:bg-surface-subtle hover:text-primary-600"
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </aside>
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:justify-start">
-              {products?.map((product) => (
-                <Product product={product} key={product._id} />
-              ))}
-            </div>
-            <Pagination currPage={currPage} onPageChange={handlePage} />
+      <main className="products-page">
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="page-container products-layout">
+            <aside className="products-sidebar">
+              <h2 className="products-sidebar__heading">Categories</h2>
+              <div className="products-categories">
+                {categoryArr.map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => handleCategory(cat)}
+                    aria-pressed={category === cat}
+                    className={`products-category${category === cat ? " is-active" : ""}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </aside>
+            <section className="products-listing">
+              <div className="products-listing__heading">
+                <h1>Explore Products</h1>
+              </div>
+              <div className="products-grid">
+                {products?.map((product) => (
+                  <Product product={product} key={product._id} />
+                ))}
+              </div>
+              <Pagination currPage={currPage} onPageChange={handlePage} />
+            </section>
           </div>
-        </div>
-      )}
-
+        )}
+      </main>
       <Footer />
     </>
   );

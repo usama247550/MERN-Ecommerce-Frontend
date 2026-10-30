@@ -56,16 +56,16 @@ const Product = ({ product }) => {
   const reviewCount = product.numOfReviews ?? 0;
 
   return (
-    <article className="group relative flex w-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary-100 hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)]">
+    <article className="product-card group relative flex w-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary-100 hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)]">
       <Link
         to={`/singleProduct/${product._id}`}
         className="relative block overflow-hidden bg-surface-subtle"
       >
-        <div className="aspect-square w-full overflow-hidden bg-[#f8f9fb]">
+        <div className="product-card__image-wrap aspect-square w-full overflow-hidden bg-[#f8f9fb]">
           <img
             src={imageUrl}
             alt={product.name}
-            className="h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+            className="product-card__image h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 

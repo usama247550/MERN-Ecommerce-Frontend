@@ -26,17 +26,20 @@ const Banner = () => {
   return (
     <div className="relative w-full overflow-hidden bg-slate-950">
       {/* Slide track */}
-      <div className="relative h-[45vh] w-full sm:h-[55vh] md:h-[65vh] lg:h-[72vh]">
+      <div className="relative h-[clamp(18rem,55vh,42rem)] w-full">
         <div
-          className="flex h-full transition-transform duration-700 ease-in-out"
+          className="flex h-full w-full transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {imgArr.map((src, ind) => (
-            <div className="relative h-full min-w-full flex-shrink-0" key={ind + 1}>
+            <div
+              className="relative h-full w-full flex-[0_0_100%]"
+              key={ind + 1}
+            >
               <img
                 src={src}
                 alt={`Slide ${ind + 1}`}
-                className="h-full w-full object-cover object-center"
+                className="block h-full w-full object-cover object-center"
               />
               {/* Bottom gradient for indicator readability */}
               <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/60 to-transparent" />

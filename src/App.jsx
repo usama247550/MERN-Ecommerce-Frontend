@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Products from "./pages/Products";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import Register from "./component/Register";
 import Login from "./component/Login";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,6 +50,8 @@ const App = () => {
           <Route path="/singleProduct/:id" element={<ProductDetails />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/contact-Us" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route
