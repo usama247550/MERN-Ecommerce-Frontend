@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import "../css/Register.css";
 import { useNavigate } from "react-router-dom";
-import Loader from "../component/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   profileUpdate,
@@ -12,6 +10,7 @@ import {
 } from "../features/user/userSlice.js";
 import { toast } from "react-toastify";
 import PageTitle from "../component/PageTitle.jsx";
+import { Button, FormGroup, Input, Label } from "../ui";
 
 const UpdateProfile = () => {
   const { user, loading, error, success } = useSelector((state) => state.user);
@@ -73,77 +72,66 @@ const UpdateProfile = () => {
       navigate("/profile");
     }
   }, [dispatch, navigate, success]);
+
   return (
     <>
       <Navbar />
+      <PageTitle title="Update Profile" />
+      <div className="auth-page">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <h2 className="form-title text-center text-2xl font-semibold text-text-primary">
+            Update Profile
+          </h2>
 
-      <>
-        <PageTitle title="Update Profile" />
-        <div className="register-container">
-          <form
-            className="register-form"
-            onSubmit={handleSubmit}
-            // encType="multipart/form-data"
-          >
-            <h2 className="form-title">Update Profile</h2>
+          <img
+            src={previewAvatar}
+            alt="Profile preview"
+            className="mx-auto h-[70px] w-[70px] rounded-full object-cover"
+          />
 
-            <img
-              src={previewAvatar}
+          <FormGroup>
+            <Label htmlFor="name">Full Name</Label>
+            <Input
+              type="text"
+              id="name"
+              placeholder={user.name}
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder={user.email}
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <Label htmlFor="avatar">Upload Image</Label>
+            <Input
+              type="file"
+              id="avatar"
               name="avatar"
               onChange={handleChange}
-              alt={previewAvatar}
-              style={{
-                width: "60px",
-                height: "60px",
-                margin: "auto",
-                borderRadius: "50%",
-              }}
+              accept="image/*"
             />
+          </FormGroup>
 
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                placeholder={user.name}
-                name="name"
-                value={name}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                placeholder={user.email}
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="image">Upload Image</label>
-              <input
-                type="file"
-                placeholder="Upload image"
-                name="avatar"
-                onChange={handleChange}
-                accept="image/*"
-              />
-            </div>
-
-            <button type="submit" className="btn-submit" disabled={loading}>
-              {loading ? "Updating.." : "Update"}
-            </button>
-          </form>
-        </div>
-      </>
-
+          <Button type="submit" loading={loading} disabled={loading} className="w-full">
+            {loading ? "Updating.." : "Update"}
+          </Button>
+        </form>
+      </div>
       <Footer />
     </>
   );
 };
 
 export default UpdateProfile;
-UpdateProfile;

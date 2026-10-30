@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import "../css/Register.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../component/Loader";
 import {
   login,
   removeError,
@@ -12,8 +10,9 @@ import {
 } from "../features/user/userSlice.js";
 import { toast } from "react-toastify";
 import PageTitle from "./PageTitle.jsx";
+import { Button, FormGroup, Input, Label } from "../ui";
 
-const Register = () => {
+const Login = () => {
   const { loading, error, success } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,65 +54,60 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <>
-        <PageTitle title="Login" />
-        <div className="register-container">
-          <form className="register-form" onSubmit={handleSubmit}>
-            <h2 className="form-title">Login</h2>
+      <PageTitle title="Login" />
+      <div className="auth-page">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <h2 className="form-title text-center text-2xl font-semibold text-text-primary">
+            Login
+          </h2>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                placeholder="xyz@gmail.com"
-                required
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </div>
+          <FormGroup>
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder="xyz@gmail.com"
+              required
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="Min 6 characters"
-                required
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-            </div>
+          <FormGroup>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              placeholder="Min 6 characters"
+              required
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-            <button
-              type="submit"
-              className={
-                loading ? "btn-submit btn-submit-loading" : "btn-submit"
-              }
-              disabled={loading}
-            >
-              {loading ? "Sign In.." : "Sign In"}
-            </button>
+          <Button type="submit" loading={loading} disabled={loading} className="w-full">
+            {loading ? "Sign In.." : "Sign In"}
+          </Button>
 
-            <p className="signin-text">
-              Don't have an account?{" "}
-              <Link className="signin-link" to="/register">
-                Sign up here
-              </Link>
-            </p>
-            <p className="signin-text">
-              Forgot your password?{" "}
-              <Link className="signin-link" to="/password/forgot">
-                Reset here
-              </Link>
-            </p>
-          </form>
-        </div>
-      </>
-
+          <p className="small-text text-center">
+            Don't have an account?{" "}
+            <Link className="link-accent" to="/register">
+              Sign up here
+            </Link>
+          </p>
+          <p className="small-text text-center">
+            Forgot your password?{" "}
+            <Link className="link-accent" to="/password/forgot">
+              Reset here
+            </Link>
+          </p>
+        </form>
+      </div>
       <Footer />
     </>
   );
 };
 
-export default Register;
+export default Login;

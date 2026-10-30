@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../css/UserDashboard.css";
 import { useDispatch } from "react-redux";
 import { removeSuccess, userLogout } from "../features/user/userSlice";
 import { toast } from "react-toastify";
@@ -44,25 +43,34 @@ const UserDashboard = ({ user }) => {
     options.unshift({ name: "Admin Dashboard", func: adminDashboard });
   }
   return (
-    <>
-      <div className="user-info" onClick={toggleMenu}>
+    <div className="relative cursor-pointer" onClick={toggleMenu}>
+      <div className="flex items-center gap-2">
         <img
           src={user?.avatar?.url || "/images/avatar.png"}
           alt={user?.name || "User"}
-          className="user-img"
+          className="h-8 w-8 rounded-full border border-white/20 object-cover"
         />
-        <p className="user-name">{user?.name || "User"}</p>
-        {showOptions && (
-          <div className="dropdown">
-            {options.map((value, index) => (
-              <button key={index} onClick={value.func} className="dropdown-btn">
-                {value.name}
-              </button>
-            ))}
-          </div>
-        )}
+        <p className="hidden max-w-[100px] truncate text-sm font-medium text-white sm:block">
+          {user?.name || "User"}
+        </p>
       </div>
-    </>
+      {showOptions && (
+        <div className="animate-fade-in absolute right-0 top-full z-50 mt-2 min-w-[180px] overflow-hidden rounded-lg border border-border bg-text-primary py-1 shadow-[var(--shadow-dropdown)]">
+          {options.map((value, index) => (
+            <button
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                value.func();
+              }}
+              className="block w-full px-4 py-2.5 text-left text-sm text-gray-200 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              {value.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

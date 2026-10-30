@@ -5,19 +5,14 @@ export const register = createAsyncThunk(
   "user/register",
   async (myData, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
-      const { data } = await axios.post("/api/v1/register", myData, config);
+      const { data } = await axios.post("/api/v1/register", myData);
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Registration failed, Try again later"
+        error.response?.data || "Registration failed, Try again later",
       );
     }
-  }
+  },
 );
 
 export const login = createAsyncThunk(
@@ -32,15 +27,15 @@ export const login = createAsyncThunk(
       const { data } = await axios.post(
         "/api/v1/login",
         { email, password },
-        config
+        config,
       );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Login failed, Try again later"
+        error.response?.data || "Login failed, Try again later",
       );
     }
-  }
+  },
 );
 
 export const getUser = createAsyncThunk(
@@ -52,7 +47,7 @@ export const getUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data || "User not found");
     }
-  }
+  },
 );
 
 export const userLogout = createAsyncThunk(
@@ -66,7 +61,7 @@ export const userLogout = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data || "Logout  failed");
     }
-  }
+  },
 );
 
 export const profileUpdate = createAsyncThunk(
@@ -82,10 +77,10 @@ export const profileUpdate = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Profile not updated, Try again later"
+        error.response?.data || "Profile not updated, Try again later",
       );
     }
-  }
+  },
 );
 
 export const resetPassword = createAsyncThunk(
@@ -100,15 +95,15 @@ export const resetPassword = createAsyncThunk(
       const { data } = await axios.put(
         "/api/v1/updatePassword",
         myData,
-        config
+        config,
       );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Password not updated, Try again later"
+        error.response?.data || "Password not updated, Try again later",
       );
     }
-  }
+  },
 );
 
 export const forgotPassword = createAsyncThunk(
@@ -123,13 +118,13 @@ export const forgotPassword = createAsyncThunk(
       const { data } = await axios.post(
         "/api/v1/password/forgot",
         myData,
-        config
+        config,
       );
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Forgot Password failed");
     }
-  }
+  },
 );
 
 export const updatePassword = createAsyncThunk(
@@ -144,13 +139,13 @@ export const updatePassword = createAsyncThunk(
       const { data } = await axios.post(
         `/api/v1/reset/${token}`,
         myData,
-        config
+        config,
       );
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Reset Password failed");
     }
-  }
+  },
 );
 
 const initialState = {
@@ -191,7 +186,7 @@ const userSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(state.user));
         localStorage.setItem(
           "isAuthenticated",
-          JSON.stringify(state.isAuthenticated)
+          JSON.stringify(state.isAuthenticated),
         );
       })
       .addCase(register.rejected, (state, action) => {
@@ -217,7 +212,7 @@ const userSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(state.user));
         localStorage.setItem(
           "isAuthenticated",
-          JSON.stringify(state.isAuthenticated)
+          JSON.stringify(state.isAuthenticated),
         );
       })
       .addCase(login.rejected, (state, action) => {
@@ -243,7 +238,7 @@ const userSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(state.user));
         localStorage.setItem(
           "isAuthenticated",
-          JSON.stringify(state.isAuthenticated)
+          JSON.stringify(state.isAuthenticated),
         );
       })
       .addCase(getUser.rejected, (state, action) => {
@@ -268,7 +263,7 @@ const userSlice = createSlice({
       .addCase(userLogout.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.user = action.payload = null;
+        state.user  = null;
         state.success = false;
         state.isAuthenticated = false;
 

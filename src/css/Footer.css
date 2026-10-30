@@ -1,16 +1,20 @@
+/* ============================
+   Footer Styles (Premium Dark Navy)
+   ============================ */
+
 .footer {
-  background: #111;
+  background: #0f172a;
   color: #fff;
   padding: 40px 20px 20px;
   width: 100%;
   overflow-x: hidden;
-  margin-top: 50vh;
+  /* Removed excessive margin-top: 50vh */
 }
 
 .footer h2 {
   font-size: 18px;
   margin-bottom: 15px;
-  color: #f1f1f1;
+  color: #ffffff;
 }
 
 .footer-container {
@@ -24,7 +28,7 @@
 .footer-section-contact p,
 .footer-section-about p {
   font-size: 14px;
-  color: #bbb;
+  color: #94a3b8;
   margin: 8px 0;
 }
 
@@ -32,27 +36,34 @@
   font-size: 22px;
   margin-right: 15px;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .footer-section-icon span:hover {
-  color: #efc312;
+  color: #3b82f6;
+  transform: translateY(-2px);
 }
 
 .footer-bottom {
   text-align: center;
   padding: 15px 0 0;
   margin-top: 30px;
-  border-top: 1px solid #333;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
 }
 .footer-bottom p {
-  color: #bbb;
+  color: #64748b;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .footer-section-icon span {
+    transition: none;
+  }
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  /* Footer */
   .footer-container {
     grid-template-columns: 1fr;
     text-align: center;

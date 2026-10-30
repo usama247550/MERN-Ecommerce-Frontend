@@ -8,7 +8,7 @@ import { removeError, removeMessage } from "../features/cart/cartSlice";
 const CartItems = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const { loading, success, message, error } = useSelector(
-    (state) => state.cart
+    (state) => state.cart,
   );
 
   const dispatch = useDispatch();
@@ -58,51 +58,70 @@ const CartItems = ({ item }) => {
     toast.success("Item remove from cart");
   };
   return (
-    <>
-      <tr key={item.id}>
-        <td>
-          <div className="product-info">
-            <img src={item.image} alt={item.name} />
-            <div className="product-details">
-              <h3>{item.name}</h3>
-              <p>Price: Rs {item.price.toFixed(2)}</p>
-              <p> Quantity: {item.quantity}</p>
-            </div>
+    <tr className="border-b border-border hover:bg-surface-subtle transition-colors">
+      <td className="py-4">
+        <div className="flex gap-4">
+          <img
+            src={item.image}
+            alt={item.name}
+            className="h-20 w-20 object-cover rounded-lg"
+          />
+          <div className="flex flex-col justify-center">
+            <h3 className="font-semibold text-text-primary text-sm sm:text-base">
+              {item.name}
+            </h3>
+            <p className="text-sm text-text-muted">
+              PKR {item.price.toFixed(2)}
+            </p>
           </div>
-        </td>
+        </div>
+      </td>
 
-        <td>
-          <div className="quantity-controls">
-            <button onClick={decreaseQuentity}>
-              <FaMinus size={8} />
-            </button>
-            <span>{quantity}</span>
-            <button onClick={increaseQuentity}>
-              <FaPlus size={8} />
-            </button>
-          </div>
-        </td>
+      <td className="py-4">
+        <div className="flex items-center gap-2 bg-surface rounded-lg w-fit px-2 py-1">
+          <button
+            onClick={decreaseQuentity}
+            className="p-1 hover:bg-border rounded transition-colors"
+          >
+            <FaMinus size={12} className="text-text-muted" />
+          </button>
+          <span className="w-8 text-center font-semibold text-text-primary">
+            {quantity}
+          </span>
+          <button
+            onClick={increaseQuentity}
+            className="p-1 hover:bg-border rounded transition-colors"
+          >
+            <FaPlus size={12} className="text-text-muted" />
+          </button>
+        </div>
+      </td>
 
-        <td>
-          <strong>Rs {item.price * item.quantity}/-</strong>
-        </td>
+      <td className="py-4">
+        <span className="font-semibold text-text-primary">
+          PKR {(item.price * quantity).toLocaleString()}
+        </span>
+      </td>
 
-        <td>
-          <div className="action-buttons">
-            <button
-              className="update-btn"
-              onClick={updateQuantity}
-              disabled={loading || quantity === item.quantity}
-            >
-              Update
-            </button>
-            <button className="remove-btn" onClick={removeItemFromCart}>
-              <FaTrash size={12} /> Remove
-            </button>
-          </div>
-        </td>
-      </tr>
-    </>
+      <td className="py-4">
+        <div className="flex gap-2">
+          <button
+            onClick={updateQuantity}
+            disabled={loading || quantity === item.quantity}
+            className="px-3 py-1 bg-text-secondary text-white rounded-lg text-sm font-medium hover:bg-text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Update
+          </button>
+          <button
+            onClick={removeItemFromCart}
+            className="px-3 py-1 bg-danger-500 text-white rounded-lg text-sm font-medium hover:bg-danger-600 transition-colors flex items-center gap-1"
+          >
+            <FaTrash size={12} />
+            <span className="hidden sm:inline">Remove</span>
+          </button>
+        </div>
+      </td>
+    </tr>
   );
 };
 

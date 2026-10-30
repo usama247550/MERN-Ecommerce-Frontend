@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import "../css/ProductDetail.css";
 import Rating from "../component/Rating";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,7 +10,6 @@ import {
 } from "../features/products/productSlice";
 import { toast } from "react-toastify";
 import Loader from "../component/Loader.jsx";
-
 import {
   removeErrors,
   removeSuccess,
@@ -22,6 +20,7 @@ import {
   addItemToCart,
 } from "../features/cart/cartSlice.js";
 import PageTitle from "../component/PageTitle.jsx";
+import { Button, Textarea } from "../ui";
 
 const ProductDetails = () => {
   const [userRating, setUserRating] = useState(0);
@@ -134,119 +133,144 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-          <div className="product-detail-container">
-            <div className="product-detail-image">
-              <img src={productImage} alt="img" className="product-image" />
-              <div className="related-images-container">
+          <div className="page-container flex flex-col gap-8 py-6 sm:py-8 lg:flex-row lg:gap-10">
+            <div className="w-full lg:w-1/2">
+              <div className="ui-card overflow-hidden p-0">
+                <img
+                  src={productImage}
+                  alt={name}
+                  className="mx-auto max-h-[50vh] w-full object-contain p-4 lg:max-h-[70vh]"
+                />
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
                 {singleProduct.product?.image.map((img, ind) => (
-                  <img
+                  <button
+                    type="button"
                     key={ind}
-                    src={img?.url}
-                    alt={`image ${ind}`}
-                    className="related-images"
                     onClick={() => setProductImage(img?.url)}
-                  />
+                    className={`h-16 w-16 overflow-hidden rounded-lg border-2 transition-colors sm:h-20 sm:w-20 ${
+                      productImage === img?.url
+                        ? "border-primary-600"
+                        : "border-border hover:border-primary-500"
+                    }`}
+                  >
+                    <img
+                      src={img?.url}
+                      alt={`Thumbnail ${ind + 1}`}
+                      className="h-full w-full object-cover"
+                    />
+                  </button>
                 ))}
               </div>
             </div>
 
-            <div className="product-detail-info">
-              <h2 className="product-detail-heading">{name}</h2>
-              <p className="product-detail-description">{description}</p>
-              <h4 className="product-detail-price">Price: {price}/-</h4>
+            <div className="w-full lg:w-1/2">
+              <h2 className="page-heading mb-3">{name}</h2>
+              <p className="body-text mb-4">{description}</p>
+              <h4 className="mb-3 text-xl font-semibold text-primary-600">
+                Price: {price}/-
+              </h4>
               <Rating
                 value={rating}
                 onRatingChange={handleRatingChange}
                 disable={true}
               />
-              <p className="product-detail-reviews">
-                ({`${numOfReviews} Reviews`})
-              </p>
+              <p className="small-text mb-3">({`${numOfReviews} Reviews`})</p>
               <h4
-                className={stock > 0 ? `product-detail-stock` : `out-of-stock`}
+                className={`mb-4 text-base font-semibold ${
+                  stock > 0 ? "text-success-700" : "text-danger-600"
+                }`}
               >
-                {stock > 0 ? ` In Stock: (${stock} available)` : `Out of Stock`}
+                {stock > 0
+                  ? ` In Stock: (${stock} available)`
+                  : `Out of Stock`}
               </h4>
-              {stock > 0 ? (
-                <>
-                  <label htmlFor="quantity">Quantity: </label>
-                  <button
-                    className="product-detail-btn"
-                    onClick={increaseQuentity}
-                  >
-                    +
-                  </button>
-                  <input
-                    type="text"
-                    value={quantity}
-                    readOnly
-                    className="product-detail-input"
-                  />
-                  <button
-                    className="product-detail-btn"
-                    onClick={decreaseQuentity}
-                  >
-                    -
-                  </button>
-                  <div>
-                    <button
-                      className="product-detail-cart-btn"
-                      onClick={addItem}
-                      disabled={cartLoading}
+              {stock > 0 && (
+                <div className="mb-6 flex flex-wrap items-center gap-3">
+                  <label htmlFor="quantity" className="form-label mb-0">
+                    Quantity:
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={decreaseQuentity}
                     >
-                      {cartLoading ? "Adding" : "Add to Cart"}
-                    </button>
+                      -
+                    </Button>
+                    <input
+                      type="text"
+                      id="quantity"
+                      value={quantity}
+                      readOnly
+                      className="form-input w-16 text-center"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={increaseQuentity}
+                    >
+                      +
+                    </Button>
                   </div>
-                </>
-              ) : (
-                ""
+                  <Button
+                    onClick={addItem}
+                    disabled={cartLoading}
+                    loading={cartLoading}
+                    className="w-full sm:w-auto"
+                  >
+                    {cartLoading ? "Adding" : "Add to Cart"}
+                  </Button>
+                </div>
               )}
 
-              <h2 className="review-heading">Write a Review</h2>
-
+              <h2 className="section-heading mb-3">Write a Review</h2>
               <Rating
                 value={userRating}
                 onRatingChange={handleRatingChange}
                 disable={false}
               />
-
-              <textarea
+              <Textarea
                 name="review"
-                placeholder="write your review here"
+                placeholder="Write your review here"
                 value={userComment}
                 onChange={(e) => setUserComment(e.target.value)}
-              ></textarea>
-              <div>
-                <button
-                  type="submit"
-                  className="submit-review-btn"
-                  onClick={handleSubmit}
-                >
-                  Submit Review
-                </button>
-              </div>
+                className="mt-3"
+              />
+              <Button
+                type="button"
+                className="mt-3"
+                onClick={handleSubmit}
+                loading={reviewLoading}
+                disabled={reviewLoading}
+              >
+                Submit Review
+              </Button>
             </div>
           </div>
 
-          <div className="reviews-container">
-            <h3 className="costomer-reviews-heading">Customer Reviews</h3>
-
+          <div className="page-container pb-10">
+            <h3 className="section-heading mb-6">Customer Reviews</h3>
             {reviews?.length < 1 ? (
-              "Not review yet"
+              <p className="body-text">Not review yet</p>
             ) : (
-              <>
+              <div className="space-y-4">
                 {reviews?.map((review) => (
-                  <div className="user" key={review._id}>
-                    <h5 className="use-name">{review.name}</h5>
+                  <div className="ui-card" key={review._id}>
+                    <h5 className="mb-1 font-semibold text-text-primary">
+                      {review.name}
+                    </h5>
                     <Rating
                       value={review.rating}
                       onRatingChange={handleRatingChange}
                       disable={true}
                     />
-                    <div className="user-comment">{review.comment}</div>
+                    <p className="body-text mt-2">{review.comment}</p>
                   </div>
                 ))}
-              </>
+              </div>
             )}
           </div>
         </>

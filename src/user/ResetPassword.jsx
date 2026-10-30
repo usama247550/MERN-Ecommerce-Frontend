@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import "../css/Register.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../component/Loader";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +11,7 @@ import {
 } from "../features/user/userSlice.js";
 import { toast } from "react-toastify";
 import PageTitle from "../component/PageTitle.jsx";
+import { Button, FormGroup, Input, Label } from "../ui";
 
 const ResetPassword = () => {
   const { loading, error, success } = useSelector((state) => state.user);
@@ -59,40 +59,44 @@ const ResetPassword = () => {
         <Loader />
       ) : (
         <>
-        <PageTitle title="Reset Password"/>
-        <div className="register-container">
-          <form className="register-form" onSubmit={handleSubmit}>
-            <h2 className="form-title">Change Password</h2>
+          <PageTitle title="Reset Password" />
+          <div className="auth-page">
+            <form className="auth-form" onSubmit={handleSubmit}>
+              <h2 className="form-title text-center text-2xl font-semibold text-text-primary">
+                Change Password
+              </h2>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="min 6 characters"
-                required
-                name="newPassword"
-                value={newPassword}
-                onChange={handleChange}
-              />
-            </div>
+              <FormGroup>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  id="password"
+                  placeholder="min 6 characters"
+                  required
+                  name="newPassword"
+                  value={newPassword}
+                  onChange={handleChange}
+                />
+              </FormGroup>
 
-            <div className="form-group">
-              <label htmlFor="confirm-password">Confirm Password</label>
-              <input
-                type="password"
-                placeholder="min 6 characters"
-                required
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={handleChange}
-              />
-            </div>
+              <FormGroup>
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Input
+                  type="password"
+                  id="confirm-password"
+                  placeholder="min 6 characters"
+                  required
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={handleChange}
+                />
+              </FormGroup>
 
-            <button type="submit" className="btn-submit">
-              Reset Password
-            </button>
-          </form>
-        </div>
+              <Button type="submit" className="w-full">
+                Reset Password
+              </Button>
+            </form>
+          </div>
         </>
       )}
 

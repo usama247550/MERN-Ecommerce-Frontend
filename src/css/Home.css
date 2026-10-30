@@ -1,26 +1,69 @@
+/* ============================
+   Home Page — Product Grid
+   ============================ */
+
+/* Product section background */
+.product-section {
+  background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+}
+
+/* CSS Grid: 4 cols desktop, 3 tablet, 2 mobile — left-aligned to avoid last-row centering gaps */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+/* Tablet: 3 columns */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Small tablet: 2 columns */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Mobile: 2 columns, tighter gap */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Very small screens: still 2 columns */
+@media (max-width: 360px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+/* ===== Heading styles (kept for any legacy usage) ===== */
 .home-heading {
   font-size: 28px;
   font-weight: bold;
-  color: #333;
+  color: #111827;
   margin-top: 50px;
   margin-bottom: 10px;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   position: relative;
 }
 
-.home-product {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 20px;
-}
 .product-id {
   text-decoration: none;
 }
 
-/* Responsive */
+/* Responsive headings */
 @media (max-width: 768px) {
   .home-heading {
     font-size: 1.6rem;

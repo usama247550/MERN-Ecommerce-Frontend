@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../css/Products.css";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
 import Loader from "../component/Loader.jsx";
@@ -10,7 +9,6 @@ import Product from "../component/Product";
 import { fetchProducts } from "../features/products/productSlice.js";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../component/Pagination.jsx";
-import NoProduct from "../component/NoProduct.jsx";
 import PageTitle from "../component/PageTitle.jsx";
 
 const Products = () => {
@@ -51,21 +49,14 @@ const Products = () => {
     }
   };
 
-  const handleCategory = (category) => {
+  const handleCategory = (cat) => {
     const newSearchParams = new URLSearchParams(location.search);
-    newSearchParams.set("category", category);
+    newSearchParams.set("category", cat);
     newSearchParams.delete("page");
     navigate(`?${newSearchParams.toString()}`);
   };
 
-  const categoryArr = [
-    "phone",
-    "laptop",
-    "watch",
-    "women",
-    "men",
-    "bag",
-  ];
+  const categoryArr = ["phone", "laptop", "watch", "women", "men", "bag"];
   return (
     <>
       <PageTitle title={"Products"} />
@@ -73,24 +64,31 @@ const Products = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="container">
-          <div className="filter-container">
-            <h3 className="filter-heading">CATEGORY</h3>
-            {categoryArr.map((category) => (
-              <p key={category} onClick={() => handleCategory(category)}>
-                {category}
-              </p>
-            ))}
-          </div>
-          <div className="products-container">
-            <div className="Home-container">
-              <div className="home-product">
-                {products?.map((product) => (
-                  <Product product={product} key={product._id} />
-                ))}
-              </div>
-              <Pagination currPage={currPage} onPageChange={handlePage} />
+        <div className="page-container flex flex-col gap-6 py-6 sm:py-8 lg:flex-row lg:gap-8">
+          <aside className="ui-card w-full shrink-0 lg:w-56 xl:w-64">
+            <h3 className="card-heading mb-4 uppercase tracking-wide">
+              Category
+            </h3>
+            <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
+              {categoryArr.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => handleCategory(cat)}
+                  className="cursor-pointer rounded-lg px-3 py-2 text-left text-sm capitalize text-text-secondary transition-colors hover:bg-surface-subtle hover:text-primary-600"
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
+          </aside>
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:justify-start">
+              {products?.map((product) => (
+                <Product product={product} key={product._id} />
+              ))}
+            </div>
+            <Pagination currPage={currPage} onPageChange={handlePage} />
           </div>
         </div>
       )}

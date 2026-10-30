@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import "../css/Register.css";
 import { Link, useNavigate } from "react-router-dom";
-import Loader from "../component/Loader";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
   register,
@@ -12,6 +9,7 @@ import {
   removeSuccess,
 } from "../features/user/userSlice.js";
 import PageTitle from "./PageTitle.jsx";
+import { Button, FormGroup, Input, Label } from "../ui";
 
 const Register = () => {
   const { loading, error, success } = useSelector((state) => state.user);
@@ -54,14 +52,12 @@ const Register = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error, { autoClose: 3000 });
       dispatch(removeError());
     }
   }, [dispatch, error]);
 
   useEffect(() => {
     if (success) {
-      toast.success("Registration successfully", { autoClose: 3000 });
       dispatch(removeSuccess());
       navigate("/login");
     }
@@ -70,93 +66,86 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <>
-        <PageTitle title="Sign up" />
-        <div className="register-container">
-          <form
-            className="register-form"
-            onSubmit={handleSubmit}
-            encType="multipart/form-data"
-          >
-            <h2 className="form-title">Create Account</h2>
-            <div className="form-group">
-              <img
-                src={previewAvatar}
-                name="avatar"
-                onChange={handleChange}
-                alt={previewAvatar}
-                className="profile-avatar"
-              />
-            </div>
+      <PageTitle title="Sign up" />
+      <div className="auth-page">
+        <form
+          className="auth-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
+          <h2 className="form-title text-center text-2xl font-semibold text-text-primary">
+            Create Account
+          </h2>
 
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                required
-                name="name"
-                value={name}
-                onChange={handleChange}
-              />
-            </div>
+          <img
+            src={previewAvatar}
+            alt="Profile preview"
+            className="mx-auto h-[70px] w-[70px] rounded-full object-cover"
+          />
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                placeholder="xyz@gmail.com"
-                required
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </div>
+          <FormGroup>
+            <Label htmlFor="name">Full Name</Label>
+            <Input
+              type="text"
+              id="name"
+              placeholder="Enter your name"
+              required
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="Min 6 characters"
-                required
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-            </div>
+          <FormGroup>
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder="xyz@gmail.com"
+              required
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-            <div className="form-group">
-              <label htmlFor="image">Upload Image</label>
-              <input
-                type="file"
-                placeholder="Upload image"
-                required
-                name="avatar"
-                onChange={handleChange}
-                accept="image/*"
-              />
-            </div>
+          <FormGroup>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              placeholder="Min 6 characters"
+              required
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-            <button
-              type="submit"
-              className={
-                loading ? "btn-submit btn-submit-loading" : "btn-submit"
-              }
-              disabled={loading}
-            >
-              {loading ? "Sign Up.." : "Sign Up"}
-            </button>
+          <FormGroup>
+            <Label htmlFor="avatar">Upload Image</Label>
+            <Input
+              type="file"
+              id="avatar"
+              required
+              name="avatar"
+              onChange={handleChange}
+              accept="image/*"
+            />
+          </FormGroup>
 
-            <p className="signin-text">
-              Already have an account?{" "}
-              <Link className="signin-link" to="/login">
-                Sign in here
-              </Link>
-            </p>
-          </form>
-        </div>
-      </>
+          <Button type="submit" loading={loading} disabled={loading} className="w-full">
+            {loading ? "Sign Up.." : "Sign Up"}
+          </Button>
 
+          <p className="small-text text-center">
+            Already have an account?{" "}
+            <Link className="link-accent" to="/login">
+              Sign in here
+            </Link>
+          </p>
+        </form>
+      </div>
       <Footer />
     </>
   );

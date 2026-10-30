@@ -26,7 +26,9 @@ const Rating = ({ value, onRatingChange, disable }) => {
       stars.push(
         <span
           key={i}
-          className={`star ${isFilled ? "filled" : "empty"}`}
+          className={`inline-flex text-lg ${
+            isFilled ? "text-amber-400" : "text-gray-300"
+          } ${!disable ? "cursor-pointer" : ""}`}
           onMouseEnter={() => mouseEnter(i)}
           onMouseLeave={mouseLeave}
           onClick={() => handleClick(i)}
@@ -39,11 +41,7 @@ const Rating = ({ value, onRatingChange, disable }) => {
     return stars;
   };
 
-  return (
-    <>
-      <div className="rating">{genrateStar()}</div>
-    </>
-  );
+  return <div className="flex items-center gap-0.5">{genrateStar()}</div>;
 };
 
 export default Rating;

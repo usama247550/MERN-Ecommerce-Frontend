@@ -18,7 +18,7 @@ export const fetchProducts = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
     }
-  }
+  },
 );
 export const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
@@ -30,7 +30,7 @@ export const fetchSingleProduct = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
     }
-  }
+  },
 );
 export const createReview = createAsyncThunk(
   "products/createReview",
@@ -45,25 +45,25 @@ export const createReview = createAsyncThunk(
       const { data } = await axios.put(
         link,
         { rating, comment, productId },
-        config
+        config,
       );
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
     }
-  }
+  },
 );
 
 const initialState = {
   loading: false,
   products: [],
   productsCount: 0,
-  singleProduct: {},
-  error: null,
   itemsPerPage: 0,
   totalPages: 0,
   reviewLoading: false,
   reviewSuccess: false,
+  singleProduct: {},
+  error: null,
 };
 
 const productSlice = createSlice({
@@ -87,10 +87,10 @@ const productSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload.products;
-        state.error = null;
         state.productsCount = action.payload.totalProduct;
         state.itemsPerPage = action.payload.limit;
         state.totalPages = action.payload.totalPages;
+        state.error = null;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;

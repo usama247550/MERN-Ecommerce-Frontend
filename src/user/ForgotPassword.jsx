@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import "../css/Register.css";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../component/Loader";
 import {
   forgotPassword,
   removeError,
@@ -11,6 +9,8 @@ import {
 } from "../features/user/userSlice.js";
 import { toast } from "react-toastify";
 import PageTitle from "../component/PageTitle.jsx";
+import { Button, FormGroup, Input, Label } from "../ui";
+
 const ForgotPassword = () => {
   const { loading, error, success, message } = useSelector(
     (state) => state.user
@@ -43,31 +43,31 @@ const ForgotPassword = () => {
   return (
     <>
       <Navbar />
-      <>
-        <PageTitle title="Forgot Password" />
-        <div className="register-container">
-          <form className="register-form" onSubmit={handleSubmit}>
-            <h2 className="form-title">Forgot Password</h2>
+      <PageTitle title="Forgot Password" />
+      <div className="auth-page">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <h2 className="form-title text-center text-2xl font-semibold text-text-primary">
+            Forgot Password
+          </h2>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                placeholder="xyz@gmail.com"
-                required
-                name="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-              />
-            </div>
+          <FormGroup>
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder="xyz@gmail.com"
+              required
+              name="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+          </FormGroup>
 
-            <button type="submit" className="btn-submit" disabled={loading}>
-              {loading ? "Sending.." : "Send"}
-            </button>
-          </form>
-        </div>
-      </>
-
+          <Button type="submit" loading={loading} disabled={loading} className="w-full">
+            {loading ? "Sending.." : "Send"}
+          </Button>
+        </form>
+      </div>
       <Footer />
     </>
   );
