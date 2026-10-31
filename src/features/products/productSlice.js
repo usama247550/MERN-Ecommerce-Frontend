@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../config/axiosConfig.js";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
@@ -25,7 +25,7 @@ export const fetchSingleProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const link = `/api/v1/singleProduct/${id}`;
-      const { data } = await axios.get(link);
+      const { data } = await axiosInstance.get(link);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -42,7 +42,7 @@ export const createReview = createAsyncThunk(
         },
       };
       const link = `/api/v1/product/review`;
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         link,
         { rating, comment, productId },
         config,

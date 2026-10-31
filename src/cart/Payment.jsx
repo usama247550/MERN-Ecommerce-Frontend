@@ -4,7 +4,7 @@ import ShippingPath from "./ShippingPath";
 import "../css/Payment.css";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
-import axios from "axios";
+import axiosInstance from "../config/axiosConfig.js";
 import { toast } from "react-toastify";
 
 const Payment = () => {
@@ -17,12 +17,9 @@ const Payment = () => {
         price: payment.total,
       };
 
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         "/api/v1/create-payment-intent",
-        { product },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { product }
       );
       if (res.data.sessionId) {
         sessionStorage.setItem("sessionId", res.data.sessionId);

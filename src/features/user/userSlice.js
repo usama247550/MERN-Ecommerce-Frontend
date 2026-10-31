@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../config/axiosConfig.js";
 
 export const register = createAsyncThunk(
   "user/register",
   async (myData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/api/v1/register", myData);
+      const { data } = await axiosInstance.post("/api/v1/register", myData);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -24,7 +24,7 @@ export const login = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/v1/login",
         { email, password },
         config,
@@ -42,7 +42,7 @@ export const getUser = createAsyncThunk(
   "user/getUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/profile");
+      const { data } = await axiosInstance.get("/api/v1/profile");
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "User not found");
@@ -54,7 +54,7 @@ export const userLogout = createAsyncThunk(
   "user/userLogout",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/api/v1/logout", {
+      const { data } = await axiosInstance.post("/api/v1/logout", {
         withCredentials: true,
       });
       return data;
@@ -73,7 +73,7 @@ export const profileUpdate = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       };
-      const { data } = await axios.put("/api/v1/updateProfile", myData, config);
+      const { data } = await axiosInstance.put("/api/v1/updateProfile", myData, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -92,7 +92,7 @@ export const resetPassword = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         "/api/v1/updatePassword",
         myData,
         config,
@@ -115,7 +115,7 @@ export const forgotPassword = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/v1/password/forgot",
         myData,
         config,
@@ -136,7 +136,7 @@ export const updatePassword = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `/api/v1/reset/${token}`,
         myData,
         config,
