@@ -13,7 +13,7 @@ export const fetchProducts = createAsyncThunk(
         link += `&keyword=${keyword}`;
       }
 
-      const { data } = await axios.get(link);
+      const { data } = await axiosInstance.get(link);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -131,3 +131,4 @@ const productSlice = createSlice({
 
 export default productSlice.reducer;
 export const { removeErrors, removeSuccess } = productSlice.actions;
+
